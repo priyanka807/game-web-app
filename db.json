@@ -1,0 +1,32 @@
+
+{
+  "userlist": [
+    {
+      "id": "priyanka",
+      "username": "priyanka",
+      "email": "priyanka",
+      "password": "priyanka"
+    },
+    {
+      "id": "khushboo",
+      "email": "khushboo",
+      "username": "khushboo",
+      "password": "khushboo"
+    },
+    {
+      "id": "khushboo",
+      "username": "khushboo",
+      "password": "khushboo"
+    },
+    {
+      "id": "priyanka807",
+      "username": "priyanka807",
+      "password": "123456"
+    },
+    {
+      "id": "priyanka807",
+      "username": "priyanka807",
+      "password": "123456"
+    }
+  ]
+}

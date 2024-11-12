@@ -1,0 +1,166 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+img {
+  height: fit-content !important;
+}
+
+body {
+  background-color: #333333;
+}
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+
+.main-container {
+  background-color: #333333;
+  background: #00000033;
+  background-image: url("/Bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  border: 1px solid gray;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  color: #fff;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 556px;
+  padding-left: 20px;
+  margin-right: 40px;
+}
+.sideImage{
+  height: fit-content !important
+}
+.main {
+  display: flex;
+  flex: 1;
+  padding-top: 20px;
+  max-height: 60%;
+}
+
+.game-list {
+  display: flex;
+  gap: 5px;
+  width: 341px;
+  height: 700px;
+  overflow-x: scroll;
+  border: 3px solid #391c0e;
+  border-radius: 10px;
+  margin-right: 40px;
+  border-image-source: linear-gradient(
+      103.54deg,
+      #d7bc93 0%,
+      #71634d 50%,
+      #d7bc93 100%
+    ),
+    linear-gradient(169.26deg, #391c0e 0.22%, #733316 42.53%, #7c461c 99.78%);
+}
+.game-list::-webkit-scrollbar {
+  display: none;
+}
+.game-card-list {
+  width: fit-content;
+  padding: 20px;
+  display: flex;
+  overflow-x: scroll;
+  height: fit-content;
+}
+.game-card-list::-webkit-scrollbar {
+  display: none;
+}
+.game-card {
+  background-color: #444;
+  padding: 10px;
+  color: #fff;
+  text-align: center;
+}
+.logo {
+  margin-top: -40px;
+}
+
+.avatar {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-right {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.toogle-action {
+  position: relative;
+}
+.count {
+  position: absolute;
+  left: 86px;
+  top: 16px;
+}
+.plus {
+  position: absolute;
+  left: 182px;
+  top: 16px;
+}
+
+.game-list-img {
+  height: 100% !important;
+}
+@media only screen and (max-width: 1440px) {
+  
+.main-container {
+  height:100%;
+}
+  .game-list{
+    height: 500px;
+  }
+}
+@media only screen and (min-width: 1440px) {
+  
+.main-container {
+  height:100%;
+}
+ 
+}
+@media only screen and (max-width: 1099px) {
+  .game-list {
+      height: 420px !important;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .header-left{
+    display: none;
+  }
+  .sidebar{
+    display: none;
+  }
+  .game-list{
+    margin-left: 30px;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+ .right-icon{
+  display: none;
+ }
+ .game-list{
+  display: none;
+ }
+ .logo{
+  margin-top: -25px;
+ }
+}
