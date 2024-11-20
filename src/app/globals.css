@@ -21,7 +21,7 @@ body {
   background-image: url("/Bg.png");
   background-size: cover;
   background-repeat: no-repeat;
-  height: 100vh;
+  height: 100%;
   border: 1px solid gray;
 }
 
