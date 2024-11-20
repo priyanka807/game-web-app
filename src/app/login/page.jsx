@@ -49,7 +49,7 @@ const Login = () => {
             .catch((error) => {
               toast.error(error.response.data.meaasage)
               console.log(error.response.data.meaasage,'error')
-              toast.error("Invalid login credentials. Please check and try again ")
+             
 
             });
       },
