@@ -10,8 +10,8 @@ const users = [{username:'priyanka',email:'pk796395@gmail.com',phone:9773583040,
 
 export async function GET(){
 try{
-await  User.find()
-return NextResponse.json(users)
+const user = await  User.find()
+return NextResponse.json(user)
 }catch(error){
 return NextResponse.json({message:"failed to get users ",status:"false"},{status:500})
 }
@@ -22,23 +22,24 @@ export async function POST(request){
     const {username,email,phone,password} =await request.json()
     
     const  newUser = new User({username,email,phone,password})
-    if(newUser.username===""||newUser.email===""||newUser.phone===""||newUser.password===""){
-         throw new Error("All fields are required .Please filled them in")
-    }
-    const existingUser = await User.findOne({ username })
-    if(existingUser){
-if(existingUser.username===username){
-    throw new Error("This username is already in use ")
-}
-    }
-
-    newUser.password = bcrypt.hashSync(password,parseInt(process.env.bcrypt_salt))
-    await newUser.save()
+  
     try{
+        if(newUser.username===""||newUser.email===""||newUser.phone===""||newUser.password===""){
+            throw new Error("All fields are required .Please filled them in")
+       }
+       const existingUser = await User.findOne({ username })
+       if(existingUser){
+   if(existingUser.username===username){
+       throw new Error("This username is already in use ")
+   }
+       }
+   
+       newUser.password = bcrypt.hashSync(password,parseInt(process.env.bcrypt_salt))
+       await newUser.save()
         return NextResponse.json({newUser,status:"200"})
     }catch(error){
         console.log(error,'error')
-       return NextResponse.json({message:error,status:"false"},{status:500}) 
+        return  NextResponse.json({message:error.message,status:false},{status:500})
     }
 }
 
