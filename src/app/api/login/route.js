@@ -7,8 +7,8 @@ import jwt from 'jsonwebtoken'
 connectDb()
 export async function GET(request){
 try{
-const user  =await LoginUser.find(user)
-return NextResponse.json()
+const user  =await LoginUser.find()
+return NextResponse.json(user)
 }catch(error){
     console.log(error,'error')
     return   NextResponse.json({meaasage:error.message,status:false},{status:500})
@@ -30,12 +30,13 @@ export async function POST(request){
  }
 
  const matchedpassword = bcrypt.compareSync(password, matchuser.password);
- console.error(matchedpassword,'matchedpassword')
+
         if (!matchedpassword) {
             throw new Error("Password Not Matched");
         }
 
  const token = jwt.sign({_id:matchuser._id},process.env.jwt_token,{expiresIn:'1d'})
+ console.error(token,'token')
   const response = NextResponse.json({message:"Logged Success !!",status:true})  
         response.cookies.set("authToken",token,{
            maxAge:24 * 60 * 60 ,
@@ -49,6 +50,7 @@ export async function POST(request){
 
         return response
     }catch(error){
+        console.log(error,'error')
         return    NextResponse.json({meaasage:error.message,status:false},{status:500})
     }
     }
