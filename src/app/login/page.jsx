@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const loginSchemas =  Yup.object({
   username:Yup.string().min(3).required("please enter   your  valid username"),
-  password:Yup.string().min(6).required("please enter your  password"),
+  password:Yup.string().required("please enter your  password"),
 
 })
 
@@ -47,7 +47,8 @@ const Login = () => {
                    
             })
             .catch((error) => {
-              console.log(error.response.data,'error')
+              toast.error(error.response.data.meaasage)
+              console.log(error.response.data.meaasage,'error')
               toast.error("Invalid login credentials. Please check and try again ")
 
             });
