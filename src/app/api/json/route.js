@@ -1,4 +1,4 @@
-// src/app/api/json/route.js
+
 
 import fs from 'fs'
 import path from 'path'
@@ -15,6 +15,8 @@ function writeData(data) {
 }
 
 export async function GET(req) {
+  // const { id } = await req.json()
+  // console.log(id,'id')
   const data = readData()
   return new Response(JSON.stringify(data), {
     headers: { 'Content-Type': 'application/json' },

@@ -8,4 +8,4 @@ export const UserSchema = new Schema({
     password:{type:String,required:[true,'Password Required']}
 })
 
-export const User = mongoose.models.users || mongoose.model("users",UserSchema)
+export const User = mongoose.models.gameuserlists || mongoose.model("gameuserlists",UserSchema)
