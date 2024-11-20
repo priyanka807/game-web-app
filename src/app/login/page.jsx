@@ -34,7 +34,7 @@ const Login = () => {
           username:values.username,
           password:values.password
         }
-            axios.post('http://localhost:3001/userlist',payload)
+            axios.post('https://game-web-app-mu.vercel.app/api/login',payload)
             .then((res) => {
              
             if(payload.username&&payload.password){
