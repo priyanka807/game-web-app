@@ -1,71 +1,71 @@
-"use client"
-import { useFormik} from "formik";
-import '../login/login.css'
-import * as Yup from 'yup';
-import axios  from "axios";
-import { useRouter } from 'next/navigation'
+"use client";
+import { useFormik } from "formik";
+import "../login/login.css";
+import * as Yup from "yup";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const loginSchemas =  Yup.object({
-  username:Yup.string().min(3).required("please enter   your  valid username"),
-  password:Yup.string().required("please enter your  password"),
+import { useState } from "react";
 
-})
+const loginSchemas = Yup.object({
+  username: Yup.string().min(3).required("Please enter your valid username"),
+  password: Yup.string().required("Please enter your password"),
+});
 
 const initialValues = {
   username: "",
   password: "",
 };
 
-
-
 const Login = () => {
-  const router = useRouter()
+  const router = useRouter();
+  const [loading, setLoading] = useState(false); // State for loading indicator
+
   const { values, errors, handleChange, handleBlur, handleSubmit, touched } =
     useFormik({
       initialValues: initialValues,
+      validationSchema: loginSchemas,
 
-      validationSchema:loginSchemas,
-      
-      
-      onSubmit: (values) => {  
-        let payload = {
-          id:values.username,
-          username:values.username,
-          password:values.password
+      onSubmit: async (values) => {
+        setLoading(true);
+          id: values.username,
+          username: values.username,
+          password: values.password,
+        };
+
+        try {
+          const res = await axios.post(
+            "https://game-web-app-mu.vercel.app/api/login",
+            payload
+          ); 
+          if (payload.username && payload.password) {
+            localStorage.setItem("newUser", payload.username);
+            toast.success("Logged in successfully!");
+            router.push("/");
+            payload.username = "";
+            payload.password = "";
+          }
+        } catch (error) {
+          toast.error(error.response.data.meaasage);
+          console.error(error.response.data.meaasage, "error");
+        } finally {
+          setLoading(false); 
         }
-            axios.post('https://game-web-app-mu.vercel.app/api/login',payload)
-            .then((res) => {
-             
-            if(payload.username&&payload.password){
-              localStorage.setItem('newUser',payload.username );
-              toast.success("Logged in successfully !")
-              router.push("/")
-              payload.username=""
-              payload.password=""
-            }
-                   
-            })
-            .catch((error) => {
-              toast.error(error.response.data.meaasage)
-              console.log(error.response.data.meaasage,'error')
-             
-
-            });
       },
     });
 
   return (
     <>
- 
       <div className="form-container">
-        <div className="" >
+        <div>
           <form onSubmit={handleSubmit}>
-          <h2 className=' font-bold'>Sign In</h2>
-<p >Please enter your username & password to continue.</p>
-            <div className="mb-3   ">
-              <label htmlFor="email" className="input-label">
-               Username
+            <h2 className="font-bold">Sign In</h2>
+            <p>Please enter your username & password to continue.</p>
+
+            <div className="mb-3">
+              <label htmlFor="username" className="input-label">
+                Username
               </label>
               <input
                 type="text"
@@ -77,17 +77,13 @@ const Login = () => {
                 value={values.username}
                 onChange={handleChange}
                 onBlur={handleBlur}
-            
+                disabled={loading} // Disable input when loading
               />
               {touched.username && errors.username ? (
-                <h6
-                  className="  errors"
-                  onClick={() => setIsSubmitted(true)}
-                >
-                  {errors.username}
-                </h6>
+                <h6 className="errors">{errors.username}</h6>
               ) : null}
             </div>
+
             <div className="mb-3">
               <label htmlFor="password" className="input-label">
                 Password
@@ -102,26 +98,24 @@ const Login = () => {
                 value={values.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
-               
+                disabled={loading} // Disable input when loading
               />
               {touched.password && errors.password ? (
-                <h6
-                  className="  errors"
-                  onClick={() => setIsSubmitted(true)}
-                >
-                  {errors.password}
-                </h6>
+                <h6 className="errors">{errors.password}</h6>
               ) : null}
             </div>
+
             <button
               type="submit"
               className="continue mt-4"
-           
+              disabled={loading} // Disable button when loading
             >
-              {" "}
-              Continue
+              {loading ? "Loading..." : "Continue"} {/* Button text changes */}
             </button>
           </form>
+
+          {/* Optional Loading Indicator */}
+          {loading && <div className="loading">Processing, please wait...</div>}
         </div>
       </div>
     </>
