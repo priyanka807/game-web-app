@@ -28,7 +28,8 @@ const Login = () => {
       validationSchema: loginSchemas,
 
       onSubmit: async (values) => {
-        setLoading(true);
+        setLoading(true); // Start loading
+        let payload = {
           id: values.username,
           username: values.username,
           password: values.password,
@@ -38,7 +39,9 @@ const Login = () => {
           const res = await axios.post(
             "https://game-web-app-mu.vercel.app/api/login",
             payload
-          ); 
+          );
+
+          // Success case
           if (payload.username && payload.password) {
             localStorage.setItem("newUser", payload.username);
             toast.success("Logged in successfully!");
@@ -47,10 +50,11 @@ const Login = () => {
             payload.password = "";
           }
         } catch (error) {
+          // Error case
           toast.error(error.response.data.meaasage);
           console.error(error.response.data.meaasage, "error");
         } finally {
-          setLoading(false); 
+          setLoading(false); // End loading
         }
       },
     });
