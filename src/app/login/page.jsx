@@ -47,7 +47,7 @@ const Login = () => {
                    
             })
             .catch((error) => {
-              console.log(error,'error')
+              console.log(error.response.data,'error')
               toast.error("Invalid login credentials. Please check and try again ")
 
             });
