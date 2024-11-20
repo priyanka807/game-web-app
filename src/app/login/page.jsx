@@ -28,7 +28,7 @@ const Login = () => {
       validationSchema: loginSchemas,
 
       onSubmit: async (values) => {
-        setLoading(true); // Start loading
+        setLoading(true);
         let payload = {
           id: values.username,
           username: values.username,
@@ -41,7 +41,7 @@ const Login = () => {
             payload
           );
 
-          // Success case
+
           if (payload.username && payload.password) {
             localStorage.setItem("newUser", payload.username);
             toast.success("Logged in successfully!");
@@ -50,11 +50,10 @@ const Login = () => {
             payload.password = "";
           }
         } catch (error) {
-          // Error case
           toast.error(error.response.data.meaasage);
           console.error(error.response.data.meaasage, "error");
         } finally {
-          setLoading(false); // End loading
+          setLoading(false); 
         }
       },
     });
@@ -81,7 +80,7 @@ const Login = () => {
                 value={values.username}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                disabled={loading} // Disable input when loading
+                disabled={loading} 
               />
               {touched.username && errors.username ? (
                 <h6 className="errors">{errors.username}</h6>
@@ -102,7 +101,7 @@ const Login = () => {
                 value={values.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                disabled={loading} // Disable input when loading
+              
               />
               {touched.password && errors.password ? (
                 <h6 className="errors">{errors.password}</h6>
@@ -112,14 +111,11 @@ const Login = () => {
             <button
               type="submit"
               className="continue mt-4"
-              disabled={loading} // Disable button when loading
+            
             >
-              {loading ? "Loading..." : "Continue"} {/* Button text changes */}
+              {loading ? "Loading..." : "Continue"}
             </button>
           </form>
-
-          {/* Optional Loading Indicator */}
-          {loading && <div className="loading">Processing, please wait...</div>}
         </div>
       </div>
     </>
